@@ -3,8 +3,10 @@ This sentiment analysis API allows you to get Sentiment for a sentence using GET
 
 ## Requirements
 Use these or any other version if you already have installed.
+
     Flask==1.1.1
     nltk==3.4.5
+
 ## Usage
 Using GET method - 
 
