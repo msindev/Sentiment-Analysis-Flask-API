@@ -19,12 +19,12 @@ def sentiment(sentence):
 @app.route("/", methods = ["GET","POST"])
 def sentimentRequest():
     if request.method == "POST":
-        sentence = request.form["sentiment_input"]
+        sentence = request.form["q"]
         sent = sentiment(sentence)
         output['sentiment'] = sent
         return jsonify(output)
     else:
-        sentence = request.args.get('si')
+        sentence = request.args.get('q')
         sent = sentiment(sentence)
         print(sentence)
         output['sentiment'] = sent
