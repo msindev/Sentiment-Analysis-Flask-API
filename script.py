@@ -2,13 +2,12 @@ from flask import Flask, render_template, abort, request, jsonify
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
-app = Flask(__name__)
+app = Flask(__name__
 
 output = {}
 
 def sentiment(sentence):
 
-    nltk.download('vader_lexicon')
     sid = SentimentIntensityAnalyzer()
     score = sid.polarity_scores(sentence)['compound']
     if(score>0):
@@ -17,18 +16,17 @@ def sentiment(sentence):
         return "Negative"
 
 @app.route("/", methods = ["GET","POST"])
-def sentimentRequest():
+def request():
     if request.method == "POST":
-        sentence = request.form['q']
-        sent = sentiment(sentence)
-        output['sentiment'] = sent
+        sentence = request.form["sentiment_input"]
+        sentiment = sentiment(sentence)
+        output['sentiment'] = sentiment
         return jsonify(output)
     else:
-        sentence = request.args.get('q')
-        sent = sentiment(sentence)
-        print(sentence)
-        output['sentiment'] = sent
-        return jsonify(output)
+        sentence = request.args.get('sentiment_input')
+        sentiment = sentiment(sentence)
+        print(sentiment)
+        output['sentiment'] = sentiment
+        return {output}
 
-if __name__ == "__main__":
-    app.run(debug=True)
+app.run(debug=True)
